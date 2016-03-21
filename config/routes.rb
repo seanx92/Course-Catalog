@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :enrollments
+  resources :course_by_subjects
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
 
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
   resources :courses
 
   get "/navigator" => "navigator#index", as: "navigator"
+  get "/search" => "search#index", as: "search"
   root 'clearance/sessions#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

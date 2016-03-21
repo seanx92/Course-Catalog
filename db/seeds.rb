@@ -35,3 +35,15 @@ records.each do |record|
   a.last = record['last']
   a.save
 end
+
+records = JSON.parse(File.read('db/course.json'))
+records.each do |record|
+  lst = record['subjects']
+  lst.each do |subject|
+    a = CourseBySubject.new
+    a.subject_id = subject['id']
+    a.course_id = record['code']
+    a.course_name = record['name']
+    a.save
+  end
+end
