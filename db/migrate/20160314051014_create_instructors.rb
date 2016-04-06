@@ -1,7 +1,7 @@
 class CreateInstructors < ActiveRecord::Migration
   def change
-    create_table :instructors do |t|
-      t.string :identity
+    create_table :instructors, id: false do |t|
+      t.string :id, null: false
       t.string :email
       t.string :first
       t.string :middle
@@ -9,5 +9,6 @@ class CreateInstructors < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    execute %Q{ ALTER TABLE "instructors" ADD PRIMARY KEY ("id"); }
   end
 end

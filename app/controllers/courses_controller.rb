@@ -52,6 +52,23 @@ class CoursesController < ApplicationController
     end
   end
 
+  def search
+    @subjects = Subject.all.map {|s| [s.name, s.id]}
+    @subjects = [["any", 0]] + @subjects
+    @courses = nil
+  end
+
+  def do_search
+    subject_param = params.fetch(:subject_id)
+    title_param = params.fetch(:title)
+    @courses = Course.do_item_search(
+          subject_id: subject_param,
+          title: title_param)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
@@ -65,7 +82,7 @@ class CoursesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
-      @course = Course.find(params[:id])
+      @course = Course.find(params[:code])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

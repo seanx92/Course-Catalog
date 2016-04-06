@@ -70,6 +70,6 @@ class EnrollmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def enrollment_params
-      params.permit(:user_id, :course_id, :course_name)
+      params.permit(:id, :user_id, :course_id, :course_name)
     end
 end

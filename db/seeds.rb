@@ -9,7 +9,7 @@
 records = JSON.parse(File.read('db/subject.json'))
 records.each do |record|
   a = Subject.new
-  a.identity = record['id']
+  a.id = record['id']
   a.name = record['name']
   a.abbreviation = record['abbreviation']
   a.save
@@ -20,7 +20,6 @@ records.each do |record|
   a = Course.new
   a.code = record['code']
   a.name = record['name']
-  a.credits = record['credits']
   a.independent_study = record['independent_study']
   a.save
 end
@@ -28,7 +27,7 @@ end
 records = JSON.parse(File.read('db/instructor.json'))
 records.each do |record|
   a = Instructor.new
-  a.identity = record['id']
+  a.id = record['id']
   a.email = record['email']
   a.first = record['first']
   a.middle = record['middle']

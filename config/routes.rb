@@ -15,10 +15,14 @@ Rails.application.routes.draw do
   get "/sign_up" => "clearance/users#new", as: "sign_up"
   resources :instructors
   resources :subjects
-  resources :courses
+  resources :courses do
+    collection do
+      get 'search'
+      get 'do_search'
+    end
+  end
 
   get "/navigator" => "navigator#index", as: "navigator"
-  get "/search" => "search#index", as: "search"
   root 'clearance/sessions#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

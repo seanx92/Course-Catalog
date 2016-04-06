@@ -17,32 +17,31 @@ ActiveRecord::Schema.define(version: 20160321195203) do
   enable_extension "plpgsql"
 
   create_table "course_by_subjects", force: :cascade do |t|
-    t.string   "subject_id"
-    t.string   "course_id"
-    t.string   "course_name"
+    t.string   "subject_id",  null: false
+    t.string   "course_id",   null: false
+    t.string   "course_name", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "courses", force: :cascade do |t|
-    t.string   "name"
-    t.string   "code"
-    t.decimal  "credits"
+  create_table "courses", primary_key: "code", force: :cascade do |t|
+    t.string   "name",              null: false
     t.boolean  "independent_study"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "course_id"
-    t.string   "course_name"
+    t.integer  "user_id",     null: false
+    t.string   "course_id",   null: false
+    t.string   "course_name", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
+  add_index "enrollments", ["user_id", "course_id"], name: "index_enrollments_on_user_id_and_course_id", unique: true, using: :btree
+
   create_table "instructors", force: :cascade do |t|
-    t.string   "identity"
     t.string   "email"
     t.string   "first"
     t.string   "middle"
@@ -52,8 +51,7 @@ ActiveRecord::Schema.define(version: 20160321195203) do
   end
 
   create_table "subjects", force: :cascade do |t|
-    t.string   "identity"
-    t.string   "name"
+    t.string   "name",         null: false
     t.string   "abbreviation"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
